@@ -3,6 +3,7 @@ env/
 
 # Ignorar archivos de caché y otros temporales
 __pycache__/
+.pytest_cache
 *.pyc
 *.pyo
 
