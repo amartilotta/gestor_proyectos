@@ -1,3 +1,4 @@
 [
-  "app/tests/test_task.py::test_create_task"
+  "app/tests/test_task.py::test_create_task",
+  "app/tests/test_task.py::test_delete_task"
 ]
