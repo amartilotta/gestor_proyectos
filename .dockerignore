@@ -1,0 +1,12 @@
+__pycache__
+docker-compose*y*ml
+.gitlab-ci.yml
+postgresql/*
+*.sql
+README.md
+.env
+*.env
+scripts/*
+*_cache/*
+*.pyc
+.venv/*

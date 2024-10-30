@@ -1,0 +1,39 @@
+services:
+  project-manager:
+    container_name: project-manager
+    restart: always
+    build:
+      context: .
+      dockerfile: ./deployment/docker/Dockerfile
+      target: backend
+    ports:
+      - $PORT:8400
+      - ${DEBUG_PORT-8401}:${DEBUG_PORT-8401}
+    env_file: .env
+    volumes:
+      - ./src:/app:cached
+      #- ./logs:/tmp/logs
+      - /etc/localtime:/etc/localtime
+    depends_on:
+      - postgres-project-manager
+    networks:
+      - project-manager-network
+    stdin_open: true
+    tty: true
+
+  postgres-project-manager:
+    container_name: postgres-project-manager
+    restart: always
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: $DATABASE_NAME
+    ports:
+      - $DATABASE_EXPOSED_PORT:5432
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    networks:
+      - project-manager-network
+
+networks:
+  project-manager-network:
