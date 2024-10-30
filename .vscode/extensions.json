@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.debugpy",
+    "ms-python.black-formatter",
+    "charliermarsh.ruff",
+    "ms-python.vscode-pylance",
+    "ms-python.mypy-type-checker",
+    "ms-azuretools.vscode-docker",
+    "usernamehw.errorlens",
+    "aaron-bond.better-comments",
+    "seunlanlege.action-buttons"
+  ]
+}

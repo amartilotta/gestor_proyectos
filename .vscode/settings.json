@@ -7,4 +7,73 @@
     "**/*_cache": true,
     "**/__init__.py": true
   },
+  "actionButtons": {
+    "defaultColor": "#ff0034",
+    "loadNpmCommands": false,
+    "reloadButton": "♻️",
+    "commands": [
+      {
+        "name": "Logger",
+        "color": "#3CDE4B",
+        "singleInstance": true,
+        "command": "make attach"
+      },
+      {
+        "name": "Shell Docker",
+        "color": "#DD2219",
+        "singleInstance": true,
+        "command": "make shell-docker"
+      },
+      {
+        "name": "Shell Python",
+        "color": "#FF5733",
+        "singleInstance": true,
+        "command": "make shell"
+      },
+      {
+        "name": "Formatter",
+        "color": "#33B2FF",
+        "singleInstance": true,
+        "command": "make format"
+      },
+      {
+        "name": "Fix Linter",
+        "color": "#F49AC2",
+        "singleInstance": true,
+        "command": "make linter"
+      },
+      {
+        "name": "Run tests",
+        "color": "#FFD700",
+        "singleInstance": true,
+        "command": "make tests"
+      },
+      {
+        "name": "Type checker",
+        "color": "#B19CD9",
+        "singleInstance": true,
+        "command": "make type-check"
+      },
+      {
+        "name": "Run migrations",
+        "color": "#77DD77",
+        "singleInstance": true,
+        "command": "make migrate"
+      }
+    ]
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "editor.defaultFormatter": "ms-python.black-formatter",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": false,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.pytestParameters": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "mypy-type-checker.cwd": "${workspaceFolder}/src",
+  "mypy-type-checker.importStrategy": "fromEnvironment",
+  "mypy-type-checker.preferDaemon": true,
+  "mypy-type-checker.reportingScope": "workspace",
 }
