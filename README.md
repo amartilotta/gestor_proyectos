@@ -10,3 +10,6 @@ uvicorn app.main:app --reload
 Comando para correr los test:
 
 pytest app/tests
+
+En caso de no tener poetry:
+curl -sSL https://install.python-poetry.org/ | python3 -
