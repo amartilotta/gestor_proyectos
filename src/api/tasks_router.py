@@ -1,9 +1,11 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from schemas.task_schema import TaskCreate, TaskOutput
+
 from models.task_model import Task
 
 router = APIRouter()
-tasks_db = []  # Temporal "base de datos" en memoria
+tasks_db: list = []  # Temporal "base de datos" en memoria
+
 
 @router.post("/tasks/", response_model=TaskOutput, status_code=201)
 async def create_task(task: TaskCreate):

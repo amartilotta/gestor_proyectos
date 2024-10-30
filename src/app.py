@@ -1,13 +1,12 @@
 from fastapi.responses import JSONResponse
-from starlette.middleware.authentication import AuthenticationMiddleware
+
+from api.tasks_router import router as tasks_router
 
 # from api.middlewares import AuthMiddleware, SessionMiddleware
 # from api.v1.error_handler import exception_handlers, global_exception_handler
 # from api.v1.router import base_api as router_v1
 # from api.v1.router import legacy_core, storage
-from config.settings import settings
 from manage import start_application
-from api.tasks_router import router as tasks_router
 
 app = start_application()
 
@@ -21,7 +20,6 @@ app = start_application()
 #     app.exception_handler(exception_type)(handler)
 
 app.include_router(tasks_router)
-
 
 
 @app.get("/health", tags=["Health Check"])

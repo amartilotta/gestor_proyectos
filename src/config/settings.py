@@ -2,7 +2,7 @@ from ast import literal_eval
 from enum import Enum
 from functools import lru_cache
 from os import environ, getcwd
-from typing import List, Optional
+from typing import List
 
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
