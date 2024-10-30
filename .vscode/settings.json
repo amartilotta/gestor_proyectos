@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "**/postgresql": true,
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/*_cache": true,
+    "**/__init__.py": true
+  },
+}
