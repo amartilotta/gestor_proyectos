@@ -41,7 +41,7 @@ class Settings(BaseSettings):
     # Database
     DATABASE_HOST: str = "postgres-project-manager"
     DATABASE_PORT: int = 5432
-    DATABASE_NAME: str = "partners"
+    DATABASE_NAME: str = "project_manager"
     DATABASE_USER: str = "postgres"
     DATABASE_PASSWORD: str = "postgres"
     DABATABASE_ECHO: bool = False
