@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from app.schemas.task_schema import TaskCreate, TaskOutput
-from app.models.task_model import Task
+from schemas.task_schema import TaskCreate, TaskOutput
+from models.task_model import Task
 
 router = APIRouter()
 tasks_db = []  # Temporal "base de datos" en memoria
