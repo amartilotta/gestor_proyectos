@@ -146,7 +146,7 @@ jobs:
         name: Migrations Check
         run: poetry run pytest ${{ vars.SRC_DIR }}/tests --verbose
     env:
-      POSTGRES_DB: partners
+      POSTGRES_DB: project_manager
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_HOST: postgres-project-manager
