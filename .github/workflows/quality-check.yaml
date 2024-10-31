@@ -1,0 +1,152 @@
+name: Backend Quality Check Pipelines
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.11-alpine
+    steps:
+      - id: checkout-code
+        name: Checkout Code
+        uses: actions/checkout@v4
+
+      - id: install-poetry-dependences
+        name: Install Poetry Dependences
+        run: |
+          mkdir -p .pip
+          chown -R root:root .pip
+          cp example.env .env
+          pip install poetry
+          poetry config virtualenvs.in-project true
+
+      - id: poetry-install
+        name: Poetry Install
+        run: poetry install
+
+      - id: run-linter
+        name: Run Linter
+        run: |
+          poetry run black --check --verbose ${{ vars.SRC_DIR }}
+          poetry run ruff check ${{ vars.SRC_DIR }}
+
+  type-check:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.11-alpine
+    steps:
+      - id: checkout-code
+        name: Checkout Code
+        uses: actions/checkout@v4
+
+      - id: install-poetry-dependences
+        name: Install Poetry Dependences
+        run: |
+          mkdir -p .pip
+          chown -R root:root .pip
+          cp example.env .env
+          pip install poetry
+          poetry config virtualenvs.in-project true
+
+      - id: poetry-install
+        name: Poetry Install
+        run: poetry install
+
+      - id: type-check
+        name: Type Check
+        run: |
+          poetry run mypy ${{ vars.SRC_DIR }}
+
+  migrations-check:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.11-alpine
+    services:
+      postgres-project-manager:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: partners
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - id: checkout-code
+        name: Checkout Code
+        uses: actions/checkout@v4
+
+      - id: install-dependences
+        name: Install Dependences
+        run: |
+          apk update && apk add --no-cache gcc postgresql-client
+          mkdir -p .pip
+          chown -R root:root .pip
+          cp example.env .env
+          pip install poetry
+          poetry config virtualenvs.in-project true
+
+      - id: poetry-install
+        name: Poetry Install
+        run: poetry install
+
+      - id: migrations-check
+        name: Migrations Check
+        working-directory: ${{ vars.SRC_DIR }}
+        run: poetry run alembic upgrade head
+    env:
+      POSTGRES_DB: partners
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: postgres-project-manager
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.11-alpine
+    services:
+      postgres-project-manager:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: partners
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - id: checkout-code
+        name: Checkout Code
+        uses: actions/checkout@v4
+
+      - id: install-dependences
+        name: Install Dependences
+        run: |
+          apk update && apk add --no-cache gcc postgresql-client
+          mkdir -p .pip
+          chown -R root:root .pip
+          cp example.env .env
+          pip install poetry
+          poetry config virtualenvs.in-project true
+
+      - id: poetry-install
+        name: Poetry Install
+        run: poetry install
+
+      - id: run-tests
+        name: Migrations Check
+        run: poetry run pytest ${{ vars.SRC_DIR }}/tests --verbose
+    env:
+      POSTGRES_DB: partners
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: postgres-project-manager
