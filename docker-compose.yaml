@@ -12,7 +12,7 @@ services:
     env_file: .env
     volumes:
       - ./src:/app:cached
-      #- ./logs:/tmp/logs
+      - ./logs:/tmp/logs
       - /etc/localtime:/etc/localtime
     depends_on:
       - postgres-project-manager
