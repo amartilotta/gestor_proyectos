@@ -1,5 +1,3 @@
-from typing import Any
-
 from fastapi import Depends
 from fastapi.responses import JSONResponse
 from schemas.task_schema import TaskCreateSchema
@@ -13,9 +11,10 @@ class TaskController:
     @staticmethod
     async def create_task(
         task: TaskCreateSchema, session: Session = Depends(get_session)
-    ) -> dict[str, Any]:
+    ):
         db_task = await TaskService.create_task(task, session)
 
         return JSONResponse(
-            {"message": "Task created", "task": db_task.model_dump()}, status_code=201
+            {"message": "Task created", "task": db_task.model_dump()},
+            status_code=201,
         )

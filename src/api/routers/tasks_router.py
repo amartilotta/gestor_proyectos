@@ -1,4 +1,3 @@
-
 from controller.task_controller import TaskController
 from fastapi import APIRouter, Depends, HTTPException
 from schemas.task_schema import (
@@ -17,7 +16,7 @@ router = APIRouter()
 logger = Logger("app_log", "app_folder", severity="info")
 
 
-#router.post("/tasks/", TaskController.create_task)
+# router.post("/tasks/", TaskController.create_task)
 
 router.add_api_route("/tasks/", TaskController.create_task, methods=["POST"])
 
