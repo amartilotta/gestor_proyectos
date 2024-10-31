@@ -1,6 +1,6 @@
 from fastapi.responses import JSONResponse
 
-from api.tasks_router import router as tasks_router
+from api.routers.tasks_router import router as tasks_router
 
 # from api.middlewares import AuthMiddleware, SessionMiddleware
 # from api.v1.error_handler import exception_handlers, global_exception_handler
