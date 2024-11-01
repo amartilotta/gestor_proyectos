@@ -1,6 +1,6 @@
 import logging
 from logging.handlers import TimedRotatingFileHandler
-from os import makedirs, umask
+from os import umask
 from pathlib import Path
 from typing import Literal
 
@@ -73,27 +73,3 @@ class Logger(logging.Logger):
 
         logger.addHandler(file_handler)
         self._logger = logger
-
-    @classmethod
-    def uvicorn_log_config(cls):
-        from uvicorn.config import LOGGING_CONFIG
-
-        umask(0o000)
-        makedirs(cls.base_folder, exist_ok=True)
-        LOGGING_CONFIG["formatters"]["logfile"] = {
-            "format": "[%(asctime)s] [%(levelname)s] [%(name)s] - %(message)s",
-            "datefmt": "%Y-%m-%d %H:%M:%S",
-        }
-
-        LOGGING_CONFIG["handlers"]["logfile"] = {
-            "class": "logging.handlers.RotatingFileHandler",
-            "formatter": "logfile",
-            "filename": f"{cls.base_folder}/access.log",
-        }
-
-        LOGGING_CONFIG["loggers"]["uvicorn"]["handlers"].append("logfile")
-        LOGGING_CONFIG["loggers"]["uvicorn.access"]["handlers"].append(
-            "logfile"
-        )
-
-        return LOGGING_CONFIG
