@@ -1,3 +1,4 @@
+from fastapi import logger
 from schemas.task_schema import TaskCreateSchema, TaskUpdateSchema
 from sqlmodel import Session, select
 
@@ -19,6 +20,7 @@ class TaskService:
 
         db_task = session.get(Task, id)
         if not db_task:
+            logger.error("TODO")
             raise TaskNotFoundError()
         update_data = task.model_dump(exclude_unset=True)
         for key, value in update_data.items():
