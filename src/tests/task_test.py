@@ -29,7 +29,7 @@ class TestTaskApi:
         assert response.status_code == status.HTTP_200_OK
 
         assert response.json() == {
-            "message": "Tasks",
+            "message": "Succefull",
             "tasks": [
                 {
                     "id": 1,
@@ -46,7 +46,7 @@ class TestTaskApi:
         assert response.status_code == status.HTTP_200_OK
 
         assert response.json() == {
-            "message": "Task",
+            "message": "Succefull",
             "task": {
                 "id": 1,
                 "title": "New Task",
