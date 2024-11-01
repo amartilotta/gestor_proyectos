@@ -1,8 +1,6 @@
-from ast import literal_eval
 from enum import Enum
 from functools import lru_cache
 from os import environ, getcwd
-from typing import List
 
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
@@ -28,10 +26,6 @@ class Settings(BaseSettings):
     DEBUG_MODE: bool = bool(environ.get("DEBUG", False))
     ENVIRONMENT: ENV = ENV.DEV
     ROOT_PATH: str = ""
-
-    # CORS Middleware
-    CORS_ORIGIN: List[str] = literal_eval(environ.get("CORS_ORIGINS", '["*"]'))
-    CORS_HEADER: List[str] = literal_eval(environ.get("CORS_HEADERS", '["*"]'))
 
     # Project
     PROJECT_NAME: str = "project-manager"

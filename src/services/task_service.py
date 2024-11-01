@@ -1,7 +1,7 @@
-from fastapi import HTTPException
 from schemas.task_schema import TaskCreateSchema, TaskUpdateSchema
 from sqlmodel import Session, select
 
+from api.errors.task_error import TaskNotFoundError
 from models.task_model import Task
 
 
@@ -19,7 +19,7 @@ class TaskService:
 
         db_task = session.get(Task, id)
         if not db_task:
-            raise HTTPException(status_code=404, detail="Task not found")
+            raise TaskNotFoundError()
         update_data = task.model_dump(exclude_unset=True)
         for key, value in update_data.items():
             setattr(db_task, key, value)
@@ -44,7 +44,7 @@ class TaskService:
     async def delete_task_by_id(id: int, session: Session):
         task = session.get(Task, id)
         if not task:
-            raise HTTPException(status_code=404, detail="Task not found")
+            raise TaskNotFoundError()
         session.delete(task)
         session.commit()
         return task
